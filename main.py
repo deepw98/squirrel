@@ -74,6 +74,13 @@ t_write = t.Turtle()
 t_write.hideturtle()
 pen = t_write.getpen()
 
+#Creating squirrel
+squ = t.Turtle("square")
+squ.color("brown")
+squ.penup()
+squ.goto(0, 30)
+
+# For squirrel score
 squ_score = 0
 s_write = t.Turtle()
 s_write.hideturtle()
@@ -89,7 +96,7 @@ def write(score):
     pen.clear()
     pen.write(f"Score:{score}", font=("calibari", 20, "bold"))
 
-
+# For squirrel score writing
 def write2(squ_score):
     s_write.penup()
     s_write.hideturtle()
@@ -98,7 +105,7 @@ def write2(squ_score):
     pen2.write(f"Squirrel Score: {squ_score}", font=("calibari", 15, "bold"))
 
 
-# Setting first score as zero
+# Setting first score as zero for both snake and squirrel
 write(0)
 write2(0)
 
@@ -114,12 +121,7 @@ screen.listen()      # function for being able to use keyboard
 moving = True       # Setup for moving loop
 food()             # Generating first food
 
-squ = t.Turtle("square")
-squ.color("brown")
-squ.penup()
-squ.goto(0, 30)
-
-
+# Function for moving the squirrel
 def go_on():
     squ.setheading(0)
     if squ.xcor() != t_x:
@@ -154,11 +156,10 @@ while moving:
     t_x = t.xcor()    # food turtle x- coordinate
     t_y = t.ycor()    # food turtle y- coordinate
 
+    go_on()          # Using the function for squirrel movement
 
-
-    go_on()
     # This if block is used for replacing food that is black dot with white dot and
-    # Creating new food and incrementing the score
+    # Creating new food and incrementing the score for both snake and squirrel
     if t_x+12 > seg_list[0].xcor() > t_x-12:
         if t_y+12 > seg_list[0].ycor() > t_y-12:
             t.goto(t_x, t_y)
@@ -207,12 +208,6 @@ while moving:
 
     # Making the snake always move forward
     seg_list[0].forward(10)
-
-    #squ.goto(0, 30)
-
-    #squ.speed(1)
-
-
 
     # Making the keyboard keys operable
     screen.onkey(key="Up", fun=do_up)
